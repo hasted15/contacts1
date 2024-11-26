@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Контакты</title>
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+</head>
+<body>
+    <div class="maindiv">
+        <div class="header">
+            <h1>Контакты</h1>
+            <button class="add" id="addContactBtn">+</button>
+        </div>
+
+        <div class="search-div">
+            <input type="text" class="search_field" id="searchField" placeholder="Поиск">
+        </div>
+
+        <div id="contactList">
+            {% for contact in contacts %}
+                <div class="contact-card" data-name="{{ contact.name }}">
+                    <img class="contacticon" src="{% static 'main/img/icon.png' %}" alt="User  Icon">
+                    <h2>{{ contact.name }}</h2>
+                    <p>{{ contact.phone }}</p>
+                    <button class="delete-btn" data-id="{{ contact.id }}">🗑️</button>
+                    <button class="favorite-btn" data-id="{{ contact.id }}">
+                        {% if contact.is_favorite %}❤️{% else %}🤍{% endif %}
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+
+        
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>Добавить контакт</h2>
+                <form id="contactForm" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#modal').hide(); 
+
+            $('#addContactBtn').click(function() {
+                $('#modal').show();
+            });
+    
+            $('#closeModal').click(function() {
+                $('#modal').hide();
+            });
+    
+            $('#searchField').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('#contactList .contact-card').filter(function() {
+                    $(this).toggle($(this).data('name').toLowerCase().indexOf(value) > -1);
+                });
+            });
+    
+            $('.favorite-btn').click(function() {
+                var contactId = $(this).data('id');
+                var button = $(this);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "toggle_favorite" %}',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        contact_id: contactId
+                    },
+                    success: function(data) {
+                        button.html(data.is_favorite ? '❤️' : '🤍');
+                        var contactCard = button.closest('.contact-card');
+                        if (data.is_favorite) {
+                            contactCard.prependTo('#contactList');
+                        }
+                    }
+                });
+            });
+    
+            $('.delete-btn').click(function() {
+                var contactId = $(this).data('id');
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "delete_contact" %}',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        contact_id: contactId
+                    },
+                    success: function() {
+                        $(`[data-id="${contactId}"]`).parent().remove();
+                    }
+                });
+            });
+    
+            $('#id_phone').inputmask({"mask": "+7(999) 999-99-99"});
+        });
+    </script>
+</body>
+</html>

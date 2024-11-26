@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Вход{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/enter-style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+{{ec}}
+<main>
+    <div class="enter-rectangle">
+        <div class="box-text">
+            <h1 style="font-size:50px; color:#00A3FF;">LUNY</h1>
+            <p style="font-size:35px; color:#000000; margin-top:15px;">Вход по логину</p>
+
+            <form action="authuser/" method="post">
+                {% csrf_token %}
+                
+                <input class="input-login" type="text" id="login" name="login" placeholder="Логин" required>
+                
+                <input class="input-login" type="password" id="password" name="password" placeholder="Пароль" required>
+                <button class="enter-for-number" type="submit">Войти</button>
+              </form>
+
+            <div class="another-enter">
+                <a class="another-enter-a" href="#">Вход по почте</a>
+               <a class="another-enter-a" href="{% url 'register' %}">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

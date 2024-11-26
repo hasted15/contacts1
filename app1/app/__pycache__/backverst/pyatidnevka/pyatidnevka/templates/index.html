@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %} ">
+{% endblock %}
+
+{% block content %}
+
+{{ec}}
+<header>
+    <div class="headerdiv" >
+        <div>
+            <a href="{% url 'index' %}" style="text-decoration: none;"><p class="logo">Luny</p></a>
+        </div>
+
+        <div class="headersearch">
+            <a href="{% url 'index' %}"><img src="{% static 'image/lupa.svg' %}" alt="Поиск" height="57px" width="80px"></a>
+            <input type="text" placeholder="Поиск" style="border:none; outline: none; font-size:20px; width:400px;">
+        </div>
+
+        <div style="display:flex;">
+            <div class="headerimages"><a class="headera" href="{% url 'enter' %}"><img src="{% static 'image/door.png' %}">Войти</a></div>
+            <div class="headerimages"><a class="headera" href="#"><img src="{% static 'image/korzina.png' %}">Корзина</a></div>
+            <div class="headerimages"><a class="headera" href="#"><img src="{% static 'image/korobka.png' %}">Заказы</a></div>
+            <a href="{% url 'personalaccount' %}">Каб</a>
+        </div>
+    </div>
+</header>
+
+
+<main>
+    <div class="mainrectangle">
+        <img class="ad" src="{% static 'image/skidki_nedeli-min.webp' %}">
+        <div>
+            <div class="adsowner">
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/d9ba42a664.webp' %} " style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">Электрочайник<br>14 490₽</span></a></div>
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/97cf02bc4c.webp' %}" style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">Депилятор<br>2 300₽</span></a></div>
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/933edc28eb.webp' %}" style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">Кухонный набор<br>5 900₽</span></a></div>
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/ec7608858e.webp' %}" style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">Фен<br>11 890₽</span></a></div>
+            </div>
+            <div class="adsowner1">
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/2319c7c39d.webp' %}" style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">Пылесос<br>14 490₽</span></a></div>
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/b89d619acb.webp' %}" style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">Отпариватель<br>2 300₽</span></a></div>
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/d3d77aea0f.webp' %}" style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">Гриль<br>5 900₽</span></a></div>
+                <div class="adrectangle"><a class="headera" href="#"><img src="{% static 'image/e45f3bb2a4.webp' %}" style="width:250px; height: 250px;border:1px solid rgba(0, 0, 0, 0.223);"><span class="spanad">UI отпариватель<br>11 890₽</span></a></div>
+            </div>
+        </div>
+        
+    </div>
+</main>
+
+{% endblock %}
+

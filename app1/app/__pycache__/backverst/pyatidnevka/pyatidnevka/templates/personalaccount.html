@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/personalaccountstyles.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<header>
+    <div class="headerdiv" >
+        <div>
+            <a href="index.html" style="text-decoration: none;"><p class="logo">Luny</p></a>
+        </div>
+
+        <div class="headersearch">
+            <a href="main\index.html"><img src="{% static 'image/lupa.svg' %}" alt="Поиск" height="57px" width="80px"></a>
+            <input type="text" placeholder="Поиск" style="border:none; outline: none; font-size:20px; width:400px;">
+        </div>
+
+        <div style="display:flex;">
+            <div class="headerimages"><a class="headera" href="{% url 'enter' %}"><img src="{% static 'image/door.png' %}">Войти</a></div>
+            <div class="headerimages"><a class="headera" href="#"><img src="{% static 'image/korzina.png' %}">Корзина</a></div>
+            <div class="headerimages"><a class="headera" href="#"><img src="{% static 'image/korobka.png' %}">Заказы</a></div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="mainrectangle">
+        <div class="nav">
+            <div class="person-information">
+                <img class="avatar" src="{% static 'image/men.jpg' %}" style="border-radius: 100%;">
+                <h2 style="font-size:30px; margin-top:65px; margin-left:10px;">Никоненко <br>Александр</h2>
+            </div>
+
+            <div class="information">
+                <ul class="ul-information">
+                    <li class="li-information"><a>Мои заказы</a></li>
+                    <li class="li-information"><a href="{% url 'acc' %}">Избранное</a></li>
+                    <li class="li-information"><a>Аналитика</a></li>
+                    <li class="li-information"><a>Мои товары</a></li>
+                    <li class="li-information"><a>Отзывы</a></li>
+                    <li class="li-information"><a>Возвраты</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav2">
+
+            <form class="zakaz" action="add/" method="post">
+                {% csrf_token %}
+                <h1>Новый товар</h1>
+                
+                <p style="font-size:23px;">Заполните основную информацию о товаре и нажмите на кнопку "Добавить".</p>
+                <h2 style="margin-top:50px;">Основная информация</h2>
+                <p style="margin-top:20px;">Ваш SKU</p>
+                <input type="text" id="sku" name="sku" />
+                <p style="margin-top:20px;">Штрихкод</p>
+                <input type="text" id="strih" name="strih" />
+                <p style="margin-top:20px;">Артикул производителя</p>
+                <input type="text" id="articul" name="articul" />
+                <p style="margin-top:20px;">Название товара</p>
+                <input type="text" id="NameTovara" name="NameTovara" />
+                <p style="margin-top:20px;">Бред производителя</p>
+                <input type="text" id="BrendTovara" name="BrendTovara" />
+                <p style="margin-top:20px;">Описание товара</p>
+                <input type="text" id="Opisanie" name="Opisanie" style="resize: none; width: 500px; height: 400px;" />
+                <input  class="register-number" type="submit" value="Записать" />
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

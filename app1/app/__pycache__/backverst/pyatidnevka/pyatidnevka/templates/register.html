@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/register-style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="enter-rectangle">
+        <div class="box-text">
+            <h1 style="font-size:50px; color:#00A3FF;">LUNY</h1>
+            <p style="font-size:35px; color:#000000; margin-top:15px;">Регистрация</p>
+            <form action="newuser/" method="post">
+                {% csrf_token %} 
+                <input class="input-login" type="text" id="login" name="login" placeholder="Логин" required>
+                <input class="input-login" type="password" id="password" name="password" placeholder="Пароль" required>
+                <button class="register-number" type="submit">Регистрация</button>
+              </form>   
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
